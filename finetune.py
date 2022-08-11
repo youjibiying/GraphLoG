@@ -41,7 +41,7 @@ def train(args, model, device, loader, optimizer, scheduler):
         #Loss matrix
         loss_mat = criterion(pred.double(), (y+1)/2)
         #loss matrix after removing null target
-        loss_mat = torch.where(is_valid, loss_mat, torch.zeros(loss_mat.shape).to(loss_mat.device).to(loss_mat.dtype))
+        loss_mat = torch.where(is_valid, loss_mat, torch.ze7ros(loss_mat.shape).to(loss_mat.device).to(loss_mat.dtype))
             
         optimizer.zero_grad()
         loss = torch.sum(loss_mat)/torch.sum(is_valid)
@@ -262,7 +262,7 @@ def main():
         print('Last epoch:')
         print('Mean: {}\tStd: {}'.format(np.mean(last_epoch_auc_list), np.std(last_epoch_auc_list)))
 
-    os.system('watch nvidia-smi')
+    # os.system('watch nvidia-smi')
 
 if __name__ == "__main__":
     main()

@@ -293,8 +293,12 @@ class MoleculeDataset(InMemoryDataset):
         for key in self.data.keys:
             item, slices = self.data[key], self.slices[key]
             s = list(repeat(slice(None), item.dim()))
-            s[data.cat_dim(key, item)] = slice(slices[idx],
-                                                    slices[idx + 1])
+            try:
+                s[data.__cat_dim__(key, item)] = slice(slices[idx],
+                                                       slices[idx + 1])
+            except:
+                s[data.cat_dim(key, item)] = slice(slices[idx],
+                                                   slices[idx + 1])
             data[key] = item[s]
         return data
 
